@@ -5,9 +5,13 @@
  */
 package pm;
 
+import java.awt.EventQueue;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -21,11 +25,14 @@ public class home extends javax.swing.JFrame {
     Statement stat;
     ResultSet rs;
     String sql;
+    ArrayList nama_nelayan = new ArrayList();
     /**
      * Creates new form home
      */
     public home() {
+       
         initComponents();
+        loadnama();
         koneksi DB = new koneksi();
         DB.config();
         con = DB.con;
@@ -51,6 +58,12 @@ public class home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        textNama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textNamaKeyPressed(evt);
+            }
+        });
+
         jLabel1.setText("Nama");
 
         jLabel2.setText("Jumlah Minyak");
@@ -61,7 +74,7 @@ public class home extends javax.swing.JFrame {
             }
         });
 
-        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1" }));
 
         Tanggal.setText("Tanggal");
 
@@ -127,26 +140,46 @@ public class home extends javax.swing.JFrame {
         String nama_nelayan = textNama.getText();
         String jumlah_minyak = textJumlahMinyak.getText();
         
-        Calendar c = Calendar.getInstance();
-        for(int i = 0; i < 32; i++) {
-	Date date = c.getTime();
-	CBtanggal.addItem(date);
-	c.add(Calendar.DAY_OF_MONTH, 1);
-}
-        
-        try{
-           
-           sql = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
-           int done = stat.executeUpdate(sql);
-           if (done > 0){
-            JOptionPane.showMessageDialog(null,"Inserted Successfully!");
-
-           }
-       } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        int numbers_to_add_max = 31;
+        for (int i = 1; i <= numbers_to_add_max; i++) {
+            CBtanggal.addItem(new Integer(i));
         }
+
+        
+//        try{
+//           
+//           sql = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
+//           int done = stat.executeUpdate(sql);
+//           if (done > 0){
+//            JOptionPane.showMessageDialog(null,"Inserted Successfully!");
+//
+//           }
+//       } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, e.getMessage());
+//        }
         
     }//GEN-LAST:event_submitMouseClicked
+
+    private void textNamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNamaKeyPressed
+        // TODO add your handling code here:
+        switch(evt.getKeyCode()){
+            case KeyEvent.VK_BACK_SPACE:
+                break;
+            case KeyEvent.VK_ENTER:
+                textNama.setText(textNama.getText());
+                break;
+            default:
+                EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                String txt = textNama.getText();
+                autocomplete(txt);
+            }
+        });
+        }
+    }//GEN-LAST:event_textNamaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -181,6 +214,46 @@ public class home extends javax.swing.JFrame {
                 new home().setVisible(true);
             }
         });
+    }
+    
+    private void loadnama(){
+        try{
+            koneksi DB = new koneksi();
+            DB.config();
+            con = DB.con;
+            stat = DB.stm;
+            String sql1 = "SELECT * FROM nelayan";
+            ResultSet rst = stat.executeQuery(sql1);
+            while (rst.next()){
+                String nama = rst.getString("nama");
+                
+                nama_nelayan.add(nama);
+            }
+          
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    public void autocomplete(String txt){
+        String Complete="";
+        int start = txt.length();
+        int last = txt.length();
+        int a;
+        
+        for(a=0;a<nama_nelayan.size();a++){
+            if(nama_nelayan.get(a).toString().startsWith(txt)){
+                Complete = nama_nelayan.get(a).toString();
+                last = Complete.length();
+                break;
+            }
+        }
+        if(last>start) {
+            textNama.setText(Complete);
+            textNama.setCaretPosition(last);
+            textNama.moveCaretPosition(start);
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

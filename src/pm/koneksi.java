@@ -23,4 +23,6 @@ public class koneksi {
             JOptionPane.showMessageDialog(null, "koneksi gagal "+e.getMessage());
         }
     }
+    
+ 
 }
