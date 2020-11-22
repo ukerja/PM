@@ -9,11 +9,14 @@ import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,8 +25,8 @@ import javax.swing.JOptionPane;
  */
 public class home extends javax.swing.JFrame {
     Connection con;
-    Statement stat;
-    ResultSet rs;
+    Statement stat, stat2, stat3;
+    ResultSet rs, rst;
     String sql;
     ArrayList nama_nelayan = new ArrayList();
     /**
@@ -37,6 +40,8 @@ public class home extends javax.swing.JFrame {
         DB.config();
         con = DB.con;
         stat = DB.stm;
+        stat2 = DB.stm;
+        stat3 = DB.stm;
     }
 
     /**
@@ -56,7 +61,7 @@ public class home extends javax.swing.JFrame {
         Tanggal = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         Bulan = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        CBbulan = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,7 +87,7 @@ public class home extends javax.swing.JFrame {
             }
         });
 
-        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Tanggal -", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Tanggal -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         CBtanggal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBtanggalActionPerformed(evt);
@@ -100,7 +105,12 @@ public class home extends javax.swing.JFrame {
 
         Bulan.setText("Bulan");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih Bulan -", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" }));
+        CBbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        CBbulan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBbulanActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
         jLabel3.setText("TAMBAH");
@@ -132,7 +142,7 @@ public class home extends javax.swing.JFrame {
                                         .addComponent(textNama)
                                         .addComponent(textJumlahMinyak)
                                         .addComponent(CBtanggal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .addComponent(CBbulan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGap(75, 75, 75))))
         );
         layout.setVerticalGroup(
@@ -155,7 +165,7 @@ public class home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Bulan)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CBbulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(submit)
                 .addGap(57, 57, 57))
@@ -177,19 +187,30 @@ public class home extends javax.swing.JFrame {
         for (int i = 1; i <= numbers_to_add_max; i++) {
             CBtanggal.addItem(new Integer(i));
         }
-
+        int year = Calendar.getInstance().get(Calendar.YEAR);
         
-//        try{
-//           
+        String tanggal = CBtanggal.getSelectedItem().toString();
+        String bulan = CBbulan.getSelectedItem().toString();
+        
+        check();
+        
+            
+            
+     
+        
+        
+//        System.out.println("nama : "+nama_nelayan);
+//        System.out.println("jumlah : "+jumlah_minyak);
+//        System.out.println("DATE : "+tanggal+"/"+bulan+"/"+year);
+
+
 //           sql = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
 //           int done = stat.executeUpdate(sql);
 //           if (done > 0){
 //            JOptionPane.showMessageDialog(null,"Inserted Successfully!");
 //
 //           }
-//       } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, e.getMessage());
-//        }
+
         
     }//GEN-LAST:event_submitMouseClicked
 
@@ -220,6 +241,10 @@ public class home extends javax.swing.JFrame {
     private void CBtanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBtanggalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CBtanggalActionPerformed
+
+    private void CBbulanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBbulanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBbulanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,11 +289,14 @@ public class home extends javax.swing.JFrame {
             stat = DB.stm;
             String sql1 = "SELECT * FROM nelayan";
             ResultSet rst = stat.executeQuery(sql1);
-            while (rst.next()){
+            
+               while (rst.next()){
                 String nama = rst.getString("nama");
                 
                 nama_nelayan.add(nama);
+            
             }
+            
           
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -298,9 +326,9 @@ public class home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bulan;
+    private javax.swing.JComboBox<String> CBbulan;
     private javax.swing.JComboBox CBtanggal;
     private javax.swing.JLabel Tanggal;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -308,4 +336,36 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JTextField textJumlahMinyak;
     private javax.swing.JTextField textNama;
     // End of variables declaration//GEN-END:variables
+
+    private void check() {
+            koneksi DB = new koneksi();
+            DB.config();
+            con = DB.con;
+            
+        try{
+                String sql1 = "SELECT * FROM nelayan";
+                ResultSet res = stat2.executeQuery(sql1);
+                    while (res.next()){
+                        String n_nelayan = res.getString("nama");
+                        checknama(n_nelayan);
+                       
+                    }
+                
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+    }
+
+
+    private void checknama(String n_nelayan) {
+        try{
+            if(!textNama.getText().equals(n_nelayan) ){
+            String insert_nama = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
+            stat3.executeUpdate(insert_nama);
+        } 
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+    }
 }
