@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author HITAM-PC
  */
-public class home extends javax.swing.JFrame {
+public class Ambil_Minyak extends javax.swing.JFrame {
     Connection con;
     Statement stat, stat2, stat3, stat4;
     ResultSet rs;
@@ -32,7 +32,7 @@ public class home extends javax.swing.JFrame {
     /**
      * Creates new form home
      */
-    public home() {
+    public Ambil_Minyak() {
         koneksi DB = new koneksi();
         DB.config();
         con = DB.con;
@@ -56,17 +56,19 @@ public class home extends javax.swing.JFrame {
     private void initComponents() {
 
         textNama = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelNama = new javax.swing.JLabel();
+        labelJmlminyak = new javax.swing.JLabel();
         textJumlahMinyak = new javax.swing.JTextField();
         CBtanggal = new javax.swing.JComboBox();
-        Tanggal = new javax.swing.JLabel();
+        TanggalBulan = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
-        Bulan = new javax.swing.JLabel();
         CBbulan = new javax.swing.JComboBox<String>();
-        jLabel3 = new javax.swing.JLabel();
+        Judul = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         textNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,25 +80,37 @@ public class home extends javax.swing.JFrame {
                 textNamaKeyPressed(evt);
             }
         });
+        getContentPane().add(textNama);
+        textNama.setBounds(177, 68, 140, 20);
 
-        jLabel1.setText("Nama");
+        labelNama.setText("Nama");
+        getContentPane().add(labelNama);
+        labelNama.setBounds(60, 71, 27, 14);
 
-        jLabel2.setText("Jumlah Minyak");
+        labelJmlminyak.setText("Jumlah Minyak");
+        getContentPane().add(labelJmlminyak);
+        labelJmlminyak.setBounds(60, 109, 69, 14);
 
         textJumlahMinyak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textJumlahMinyakActionPerformed(evt);
             }
         });
+        getContentPane().add(textJumlahMinyak);
+        textJumlahMinyak.setBounds(177, 106, 140, 20);
 
-        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Tanggal -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Tanggal -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         CBtanggal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBtanggalActionPerformed(evt);
             }
         });
+        getContentPane().add(CBtanggal);
+        CBtanggal.setBounds(180, 140, 80, 20);
 
-        Tanggal.setText("Tanggal");
+        TanggalBulan.setText("Tanggal / Bulan");
+        getContentPane().add(TanggalBulan);
+        TanggalBulan.setBounds(60, 140, 80, 14);
 
         submit.setText("Submit");
         submit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,76 +118,38 @@ public class home extends javax.swing.JFrame {
                 submitMouseClicked(evt);
             }
         });
+        getContentPane().add(submit);
+        submit.setBounds(252, 220, 65, 23);
 
-        Bulan.setText("Bulan");
-
-        CBbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        CBbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         CBbulan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBbulanActionPerformed(evt);
             }
         });
+        getContentPane().add(CBbulan);
+        CBbulan.setBounds(270, 140, 80, 20);
 
-        jLabel3.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
-        jLabel3.setText("TAMBAH");
+        Judul.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
+        Judul.setText("TAMBAH");
+        getContentPane().add(Judul);
+        Judul.setBounds(60, 36, 33, 14);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(submit))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Tanggal)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2)
-                                        .addComponent(Bulan))
-                                    .addGap(48, 48, 48)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(textNama)
-                                        .addComponent(textJumlahMinyak)
-                                        .addComponent(CBtanggal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(CBbulan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(75, 75, 75))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(textJumlahMinyak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Tanggal)
-                    .addComponent(CBtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Bulan)
-                    .addComponent(CBbulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(submit)
-                .addGap(57, 57, 57))
-        );
+        jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(420, 220, 73, 23);
 
-        pack();
+        background.setText("jLabel1");
+        getContentPane().add(background);
+        background.setBounds(4, 4, 660, 520);
+
+        setSize(new java.awt.Dimension(686, 565));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textJumlahMinyakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textJumlahMinyakActionPerformed
@@ -244,6 +220,12 @@ public class home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CBbulanActionPerformed
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        new FormHome().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -261,20 +243,20 @@ public class home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ambil_Minyak.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ambil_Minyak.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ambil_Minyak.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ambil_Minyak.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new home().setVisible(true);
+                new Ambil_Minyak().setVisible(true);
             }
         });
     }
@@ -320,13 +302,14 @@ public class home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Bulan;
     private javax.swing.JComboBox<String> CBbulan;
     private javax.swing.JComboBox CBtanggal;
-    private javax.swing.JLabel Tanggal;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel Judul;
+    private javax.swing.JLabel TanggalBulan;
+    private javax.swing.JLabel background;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel labelJmlminyak;
+    private javax.swing.JLabel labelNama;
     private javax.swing.JButton submit;
     private javax.swing.JTextField textJumlahMinyak;
     private javax.swing.JTextField textNama;
