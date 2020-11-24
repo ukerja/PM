@@ -25,23 +25,25 @@ import javax.swing.JOptionPane;
  */
 public class home extends javax.swing.JFrame {
     Connection con;
-    Statement stat, stat2, stat3;
-    ResultSet rs, rst;
+    Statement stat, stat2, stat3, stat4;
+    ResultSet rs;
     String sql;
     ArrayList nama_nelayan = new ArrayList();
     /**
      * Creates new form home
      */
     public home() {
-       
-        initComponents();
-        loadnama();
         koneksi DB = new koneksi();
         DB.config();
         con = DB.con;
         stat = DB.stm;
         stat2 = DB.stm;
         stat3 = DB.stm;
+        stat4 = DB.stm;
+        loadnama();
+        initComponents();
+        
+
     }
 
     /**
@@ -179,7 +181,7 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_textJumlahMinyakActionPerformed
 
     private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
-        String nama_nelayan = textNama.getText();
+        String nama = textNama.getText();
         String jumlah_minyak = textJumlahMinyak.getText();
         
         SimpleDateFormat sdf = new SimpleDateFormat();
@@ -191,26 +193,22 @@ public class home extends javax.swing.JFrame {
         
         String tanggal = CBtanggal.getSelectedItem().toString();
         String bulan = CBbulan.getSelectedItem().toString();
-        
+        String dmy = year+"-"+bulan+"-"+tanggal;
         check();
+        try{
+           if(nama.isEmpty() || jumlah_minyak.isEmpty() || tanggal.isEmpty() || bulan.isEmpty()){
+               JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!!!");
+           }else{
+                String insert_minyak = "INSERT INTO ambil_minyak (nama_nelayan, tanggal, jumlah) "
+                + "VALUES ('"+nama+"','"+String.valueOf(dmy)+"','"+jumlah_minyak+"')";
+                stat4.executeUpdate(insert_minyak); 
+                JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
+           }
+           
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
         
-            
-            
-     
-        
-        
-//        System.out.println("nama : "+nama_nelayan);
-//        System.out.println("jumlah : "+jumlah_minyak);
-//        System.out.println("DATE : "+tanggal+"/"+bulan+"/"+year);
-
-
-//           sql = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
-//           int done = stat.executeUpdate(sql);
-//           if (done > 0){
-//            JOptionPane.showMessageDialog(null,"Inserted Successfully!");
-//
-//           }
-
         
     }//GEN-LAST:event_submitMouseClicked
 
@@ -283,15 +281,12 @@ public class home extends javax.swing.JFrame {
     
     private void loadnama(){
         try{
-            koneksi DB = new koneksi();
-            DB.config();
-            con = DB.con;
-            stat = DB.stm;
+         
             String sql1 = "SELECT * FROM nelayan";
-            ResultSet rst = stat.executeQuery(sql1);
+            ResultSet reset = stat.executeQuery(sql1);
             
-               while (rst.next()){
-                String nama = rst.getString("nama");
+                while (reset.next()){
+                String nama = reset.getString("nama");
                 
                 nama_nelayan.add(nama);
             
@@ -337,35 +332,25 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JTextField textNama;
     // End of variables declaration//GEN-END:variables
 
-    private void check() {
-            koneksi DB = new koneksi();
-            DB.config();
-            con = DB.con;
-            
+    private void check() {          
         try{
-                String sql1 = "SELECT * FROM nelayan";
-                ResultSet res = stat2.executeQuery(sql1);
-                    while (res.next()){
-                        String n_nelayan = res.getString("nama");
-                        checknama(n_nelayan);
-                       
-                    }
+                String sql1 = "SELECT * FROM nelayan WHERE nama='"+textNama.getText()+"'";
+                ResultSet result = stat2.executeQuery(sql1);
+                if(result.next() == false){
+                    String insert_nama = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
+                    stat3.executeUpdate(insert_nama);
+                }
+//                    while (result.next()){
+//                        String n_nelayan = result.getString("nama");
+//                        
+//                        checknama(n_nelayan);
+//                       
+//                    }
                 
             } catch(Exception e){
-                JOptionPane.showMessageDialog(this, e.getMessage());
+                System.out.println(e.getMessage());
             }
     }
 
 
-    private void checknama(String n_nelayan) {
-        try{
-            if(!textNama.getText().equals(n_nelayan) ){
-            String insert_nama = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
-            stat3.executeUpdate(insert_nama);
-        } 
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-        
-    }
 }
