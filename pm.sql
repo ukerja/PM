@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2020 at 05:47 AM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.2.31
+-- Generation Time: Nov 25, 2020 at 09:32 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,8 @@ CREATE TABLE `ambil_minyak` (
 INSERT INTO `ambil_minyak` (`id`, `nama_nelayan`, `tanggal`, `jumlah`) VALUES
 (1, 'madi', '2020-03-01', 100),
 (2, 'aris', '2020-09-03', 100),
-(3, 'aris', '2020-12-09', 100);
+(3, 'aris', '2020-12-09', 100),
+(4, 'madi', '2020-03-03', 10);
 
 -- --------------------------------------------------------
 
@@ -87,6 +88,26 @@ INSERT INTO `nelayan` (`id`, `nama`) VALUES
 (9, 'rando'),
 (10, '');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock_in`
+--
+
+CREATE TABLE `stock_in` (
+  `id` int(11) NOT NULL,
+  `nama_nelayan` varchar(20) NOT NULL,
+  `tanggal` date NOT NULL,
+  `jumlah` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `stock_in`
+--
+
+INSERT INTO `stock_in` (`id`, `nama_nelayan`, `tanggal`, `jumlah`) VALUES
+(1, 'madi', '2020-11-25', 1000);
+
 --
 -- Indexes for dumped tables
 --
@@ -110,6 +131,12 @@ ALTER TABLE `nelayan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `stock_in`
+--
+ALTER TABLE `stock_in`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -117,7 +144,7 @@ ALTER TABLE `nelayan`
 -- AUTO_INCREMENT for table `ambil_minyak`
 --
 ALTER TABLE `ambil_minyak`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -130,6 +157,12 @@ ALTER TABLE `login`
 --
 ALTER TABLE `nelayan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `stock_in`
+--
+ALTER TABLE `stock_in`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

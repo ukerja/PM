@@ -9,30 +9,27 @@ import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author HITAM-PC
  */
-public class home extends javax.swing.JFrame {
-    Connection con;
+public class stock_in extends javax.swing.JFrame {
+     Connection con;
     Statement stat, stat2, stat3, stat4;
     ResultSet rs;
     String sql;
     ArrayList nama_nelayan = new ArrayList();
     /**
-     * Creates new form home
+     * Creates new form stock_in
      */
-    public home() {
+    public stock_in() {
+        
         koneksi DB = new koneksi();
         DB.config();
         con = DB.con;
@@ -42,8 +39,6 @@ public class home extends javax.swing.JFrame {
         stat4 = DB.stm;
         loadnama();
         initComponents();
-        
-
     }
 
     /**
@@ -55,6 +50,7 @@ public class home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         textNama = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -64,10 +60,11 @@ public class home extends javax.swing.JFrame {
         submit = new javax.swing.JButton();
         Bulan = new javax.swing.JLabel();
         CBbulan = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel3.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
+        jLabel3.setText("STOCK IN");
 
         textNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,58 +117,41 @@ public class home extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
-        jLabel3.setText("AMBIL MINYAK");
-
-        jButton1.setText("+");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
-                        .addComponent(submit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(Bulan))
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textNama)
-                            .addComponent(textJumlahMinyak)
-                            .addComponent(CBtanggal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CBbulan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Tanggal)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addGap(75, 75, 75))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(submit))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Tanggal)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2)
+                                        .addComponent(Bulan))
+                                    .addGap(48, 48, 48)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(textNama)
+                                        .addComponent(textJumlahMinyak)
+                                        .addComponent(CBtanggal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(CBbulan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(75, 75, 75))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton1))
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,69 +176,68 @@ public class home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void textNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNamaActionPerformed
+
+    private void textNamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNamaKeyPressed
+        // TODO add your handling code here:
+        switch(evt.getKeyCode()){
+            case KeyEvent.VK_BACK_SPACE:
+            break;
+            case KeyEvent.VK_ENTER:
+            textNama.setText(textNama.getText());
+            break;
+            default:
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    String txt = textNama.getText();
+                    autocomplete(txt);
+                }
+            });
+        }
+    }//GEN-LAST:event_textNamaKeyPressed
+
     private void textJumlahMinyakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textJumlahMinyakActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textJumlahMinyakActionPerformed
 
+    private void CBtanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBtanggalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBtanggalActionPerformed
+
     private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
         String nama = textNama.getText();
         String jumlah_minyak = textJumlahMinyak.getText();
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat();
         int numbers_to_add_max = 31;
         for (int i = 1; i <= numbers_to_add_max; i++) {
             CBtanggal.addItem(new Integer(i));
         }
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        
+
         String tanggal = CBtanggal.getSelectedItem().toString();
         String bulan = CBbulan.getSelectedItem().toString();
         String dmy = year+"-"+bulan+"-"+tanggal;
         check();
         try{
-           if(nama.isEmpty() || jumlah_minyak.isEmpty() || tanggal.isEmpty() || bulan.isEmpty()){
-               JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!!!");
-           }else{
-                String insert_minyak = "INSERT INTO ambil_minyak (nama_nelayan, tanggal, jumlah) "
+            if(nama.isEmpty() || jumlah_minyak.isEmpty() || tanggal.isEmpty() || bulan.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!!!");
+            }else{
+                String insert_minyak = "INSERT INTO stock_in (nama_nelayan, tanggal, jumlah) "
                 + "VALUES ('"+nama+"','"+String.valueOf(dmy)+"','"+jumlah_minyak+"')";
-                stat4.executeUpdate(insert_minyak); 
+                stat4.executeUpdate(insert_minyak);
                 JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
-           }
-           
+            }
+
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
-        
+
     }//GEN-LAST:event_submitMouseClicked
-
-    private void textNamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNamaKeyPressed
-        // TODO add your handling code here:
-        switch(evt.getKeyCode()){
-            case KeyEvent.VK_BACK_SPACE:
-                break;
-            case KeyEvent.VK_ENTER:
-                textNama.setText(textNama.getText());
-                break;
-            default:
-                EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                String txt = textNama.getText();
-                autocomplete(txt);
-            }
-        });
-        }
-    }//GEN-LAST:event_textNamaKeyPressed
-
-    private void textNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textNamaActionPerformed
-
-    private void CBtanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBtanggalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CBtanggalActionPerformed
 
     private void CBbulanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBbulanActionPerformed
         // TODO add your handling code here:
@@ -267,15 +246,6 @@ public class home extends javax.swing.JFrame {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_submitActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-       new stock_in().setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -294,25 +264,24 @@ public class home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(stock_in.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(stock_in.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(stock_in.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(stock_in.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new home().setVisible(true);
+                new stock_in().setVisible(true);
             }
         });
     }
-    
-    private void loadnama(){
+ private void loadnama(){
         try{
          
             String sql1 = "SELECT * FROM nelayan";
@@ -351,13 +320,11 @@ public class home extends javax.swing.JFrame {
         }
         
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bulan;
     private javax.swing.JComboBox<String> CBbulan;
     private javax.swing.JComboBox CBtanggal;
     private javax.swing.JLabel Tanggal;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -366,7 +333,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JTextField textNama;
     // End of variables declaration//GEN-END:variables
 
-    private void check() {          
+    private void check() {
         try{
                 String sql1 = "SELECT * FROM nelayan WHERE nama='"+textNama.getText()+"'";
                 ResultSet result = stat2.executeQuery(sql1);
@@ -374,17 +341,10 @@ public class home extends javax.swing.JFrame {
                     String insert_nama = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
                     stat3.executeUpdate(insert_nama);
                 }
-//                    while (result.next()){
-//                        String n_nelayan = result.getString("nama");
-//                        
-//                        checknama(n_nelayan);
-//                       
-//                    }
                 
             } catch(Exception e){
                 System.out.println(e.getMessage());
             }
     }
-
-
 }
+
