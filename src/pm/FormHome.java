@@ -35,10 +35,14 @@ public class FormHome extends javax.swing.JFrame {
     private void initComponents() {
 
         Close = new javax.swing.JLabel();
+        StockOut = new javax.swing.JLabel();
+        StockIn = new javax.swing.JLabel();
+        Report = new javax.swing.JLabel();
         Background = new javax.swing.JLabel();
         mouse = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(680, 566));
         setSize(new java.awt.Dimension(680, 566));
@@ -46,6 +50,7 @@ public class FormHome extends javax.swing.JFrame {
 
         Close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/icon/close.png"))); // NOI18N
         Close.setText("jLabel1");
+        Close.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Close.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CloseMouseClicked(evt);
@@ -65,6 +70,23 @@ public class FormHome extends javax.swing.JFrame {
         });
         getContentPane().add(Close);
         Close.setBounds(590, 20, 40, 40);
+
+        StockOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/icon/buttonStockOut.png"))); // NOI18N
+        StockOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StockOutMouseClicked(evt);
+            }
+        });
+        getContentPane().add(StockOut);
+        StockOut.setBounds(360, 170, 218, 124);
+
+        StockIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/icon/buttonStockIn.png"))); // NOI18N
+        getContentPane().add(StockIn);
+        StockIn.setBounds(360, 240, 218, 124);
+
+        Report.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/icon/buttonReport.png"))); // NOI18N
+        getContentPane().add(Report);
+        Report.setBounds(360, 310, 218, 124);
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/images/home.png"))); // NOI18N
         getContentPane().add(Background);
@@ -131,6 +153,12 @@ public class FormHome extends javax.swing.JFrame {
         Close.setIcon(A);
     }//GEN-LAST:event_CloseMouseReleased
 
+    private void StockOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StockOutMouseClicked
+        // TODO add your handling code here:
+        new Ambil_Minyak().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_StockOutMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -169,6 +197,9 @@ public class FormHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JLabel Close;
+    private javax.swing.JLabel Report;
+    private javax.swing.JLabel StockIn;
+    private javax.swing.JLabel StockOut;
     private javax.swing.JLabel mouse;
     // End of variables declaration//GEN-END:variables
 }
