@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,21 +56,50 @@ public class Ambil_Minyak extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        backButton = new javax.swing.JLabel();
         textNama = new javax.swing.JTextField();
-        labelNama = new javax.swing.JLabel();
-        labelJmlminyak = new javax.swing.JLabel();
         textJumlahMinyak = new javax.swing.JTextField();
         CBtanggal = new javax.swing.JComboBox();
-        TanggalBulan = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         CBbulan = new javax.swing.JComboBox<String>();
-        Judul = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("frame1"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(680, 566));
+        setResizable(false);
+        setSize(new java.awt.Dimension(680, 566));
         getContentPane().setLayout(null);
 
+        backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/icon/back.png"))); // NOI18N
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButtonMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                backButtonMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                backButtonMouseReleased(evt);
+            }
+        });
+        getContentPane().add(backButton);
+        backButton.setBounds(40, 20, 80, 40);
+
+        textNama.setBackground(new java.awt.Color(25, 115, 148));
+        textNama.setFont(new java.awt.Font("Roboto Slab ExtraBold", 0, 14)); // NOI18N
+        textNama.setForeground(new java.awt.Color(255, 255, 255));
+        textNama.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textNama.setToolTipText("");
+        textNama.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        textNama.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        textNama.setSelectionColor(new java.awt.Color(255, 255, 255));
         textNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textNamaActionPerformed(evt);
@@ -81,36 +111,31 @@ public class Ambil_Minyak extends javax.swing.JFrame {
             }
         });
         getContentPane().add(textNama);
-        textNama.setBounds(177, 68, 140, 20);
+        textNama.setBounds(240, 190, 180, 40);
 
-        labelNama.setText("Nama");
-        getContentPane().add(labelNama);
-        labelNama.setBounds(60, 71, 27, 14);
-
-        labelJmlminyak.setText("Jumlah Minyak");
-        getContentPane().add(labelJmlminyak);
-        labelJmlminyak.setBounds(60, 109, 69, 14);
-
+        textJumlahMinyak.setBackground(new java.awt.Color(25, 115, 148));
+        textJumlahMinyak.setFont(new java.awt.Font("Roboto Slab ExtraBold", 0, 14)); // NOI18N
+        textJumlahMinyak.setForeground(new java.awt.Color(255, 255, 255));
+        textJumlahMinyak.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textJumlahMinyak.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        textJumlahMinyak.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        textJumlahMinyak.setSelectionColor(new java.awt.Color(255, 255, 255));
         textJumlahMinyak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textJumlahMinyakActionPerformed(evt);
             }
         });
         getContentPane().add(textJumlahMinyak);
-        textJumlahMinyak.setBounds(177, 106, 140, 20);
+        textJumlahMinyak.setBounds(240, 240, 180, 40);
 
-        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Tanggal -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Tanggal-", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         CBtanggal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBtanggalActionPerformed(evt);
             }
         });
         getContentPane().add(CBtanggal);
-        CBtanggal.setBounds(180, 140, 80, 20);
-
-        TanggalBulan.setText("Tanggal / Bulan");
-        getContentPane().add(TanggalBulan);
-        TanggalBulan.setBounds(60, 140, 80, 14);
+        CBtanggal.setBounds(240, 300, 90, 20);
 
         submit.setText("Submit");
         submit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,7 +144,7 @@ public class Ambil_Minyak extends javax.swing.JFrame {
             }
         });
         getContentPane().add(submit);
-        submit.setBounds(252, 220, 65, 23);
+        submit.setBounds(320, 370, 90, 30);
 
         CBbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         CBbulan.addActionListener(new java.awt.event.ActionListener() {
@@ -128,32 +153,13 @@ public class Ambil_Minyak extends javax.swing.JFrame {
             }
         });
         getContentPane().add(CBbulan);
-        CBbulan.setBounds(270, 140, 80, 20);
+        CBbulan.setBounds(340, 300, 80, 20);
 
-        Judul.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
-        Judul.setText("TAMBAH");
-        getContentPane().add(Judul);
-        Judul.setBounds(60, 36, 33, 14);
-
-        jButton1.setText("jButton1");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(420, 220, 73, 23);
-
-        background.setText("jLabel1");
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/images/ambil_minyak.png"))); // NOI18N
         getContentPane().add(background);
-        background.setBounds(4, 4, 660, 520);
+        background.setBounds(4, 4, 670, 560);
 
-        setSize(new java.awt.Dimension(686, 565));
+        setSize(new java.awt.Dimension(696, 605));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -225,15 +231,35 @@ public class Ambil_Minyak extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CBbulanActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
         // TODO add your handling code here:
         new FormHome().setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_backButtonMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void backButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+         ImageIcon A = new ImageIcon(getClass().getResource("icon/backho.png"));
+        backButton.setIcon(A);
+    }//GEN-LAST:event_backButtonMouseEntered
+
+    private void backButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseExited
+        // TODO add your handling code here:
+        ImageIcon A = new ImageIcon(getClass().getResource("icon/back.png"));
+        backButton.setIcon(A);
+    }//GEN-LAST:event_backButtonMouseExited
+
+    private void backButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMousePressed
+        // TODO add your handling code here:
+        ImageIcon A = new ImageIcon(getClass().getResource("icon/backc.png"));
+        backButton.setIcon(A);
+    }//GEN-LAST:event_backButtonMousePressed
+
+    private void backButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseReleased
+        // TODO add your handling code here:
+        ImageIcon A = new ImageIcon(getClass().getResource("icon/back.png"));
+        backButton.setIcon(A);
+    }//GEN-LAST:event_backButtonMouseReleased
 
     /**
      * @param args the command line arguments
@@ -313,12 +339,8 @@ public class Ambil_Minyak extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CBbulan;
     private javax.swing.JComboBox CBtanggal;
-    private javax.swing.JLabel Judul;
-    private javax.swing.JLabel TanggalBulan;
+    private javax.swing.JLabel backButton;
     private javax.swing.JLabel background;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel labelJmlminyak;
-    private javax.swing.JLabel labelNama;
     private javax.swing.JButton submit;
     private javax.swing.JTextField textJumlahMinyak;
     private javax.swing.JTextField textNama;

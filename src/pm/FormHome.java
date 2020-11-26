@@ -43,8 +43,10 @@ public class FormHome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setName("frame0"); // NOI18N
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(680, 566));
+        setResizable(false);
         setSize(new java.awt.Dimension(680, 566));
         getContentPane().setLayout(null);
 
@@ -69,7 +71,7 @@ public class FormHome extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Close);
-        Close.setBounds(590, 20, 40, 40);
+        Close.setBounds(620, 10, 40, 40);
 
         StockOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/icon/buttonStockOut.png"))); // NOI18N
         StockOut.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -90,7 +92,7 @@ public class FormHome extends javax.swing.JFrame {
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/images/home.png"))); // NOI18N
         getContentPane().add(Background);
-        Background.setBounds(0, 0, 660, 520);
+        Background.setBounds(0, 0, 680, 560);
 
         mouse.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -105,7 +107,7 @@ public class FormHome extends javax.swing.JFrame {
         getContentPane().add(mouse);
         mouse.setBounds(4, 0, 660, 520);
 
-        setSize(new java.awt.Dimension(664, 527));
+        setSize(new java.awt.Dimension(680, 566));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
