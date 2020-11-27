@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class home extends javax.swing.JFrame {
     Connection con;
-    Statement stat, stat2, stat3, stat4;
+    Statement stat, stat2, stat3, stat4, stat5;
     ResultSet rs;
     String sql;
     ArrayList nama_nelayan = new ArrayList();
@@ -40,6 +40,8 @@ public class home extends javax.swing.JFrame {
         stat2 = DB.stm;
         stat3 = DB.stm;
         stat4 = DB.stm;
+        stat5 = DB.stm;
+        
         loadnama();
         initComponents();
         
@@ -219,10 +221,24 @@ public class home extends javax.swing.JFrame {
            if(nama.isEmpty() || jumlah_minyak.isEmpty() || tanggal.isEmpty() || bulan.isEmpty()){
                JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!!!");
            }else{
-                String insert_minyak = "INSERT INTO ambil_minyak (nama_nelayan, tanggal, jumlah) "
-                + "VALUES ('"+nama+"','"+String.valueOf(dmy)+"','"+jumlah_minyak+"')";
-                stat4.executeUpdate(insert_minyak); 
-                JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
+                String total_minyak = "select ((select sum(jumlah) from stock_in where status='in') "
+                        + "- (select sum(jumlah) from stock_in where status='out')) as jumlah";
+                ResultSet total = stat5.executeQuery(total_minyak);
+                if(total.next()){
+                    String jumlah = total.getString("jumlah");
+                    if(Integer.parseInt(jumlah) < Integer.parseInt(jumlah_minyak)){
+                        JOptionPane.showMessageDialog(null, "Stock minyak kurang!!!, "
+                                + "Silahkan tambah stock minyak terlebih dahulu");
+                    } else{
+                        String insert_minyak = "INSERT INTO ambil_minyak (nama_nelayan, tanggal, jumlah) "
+                        + "VALUES ('"+nama+"','"+String.valueOf(dmy)+"','"+jumlah_minyak+"')";
+                        stat4.executeUpdate(insert_minyak); 
+                        JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
+                    }
+//                    JOptionPane.showConfirmDialog(null, "Total : "+jumlah);
+                  
+                }
+
            }
            
         }catch(Exception e){

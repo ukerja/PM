@@ -24,7 +24,6 @@ public class stock_in extends javax.swing.JFrame {
     Statement stat, stat2, stat3, stat4;
     ResultSet rs;
     String sql;
-    ArrayList nama_nelayan = new ArrayList();
     /**
      * Creates new form stock_in
      */
@@ -37,7 +36,6 @@ public class stock_in extends javax.swing.JFrame {
         stat2 = DB.stm;
         stat3 = DB.stm;
         stat4 = DB.stm;
-        loadnama();
         initComponents();
     }
 
@@ -51,33 +49,17 @@ public class stock_in extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
-        textNama = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         textJumlahMinyak = new javax.swing.JTextField();
         CBtanggal = new javax.swing.JComboBox();
         Tanggal = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
-        Bulan = new javax.swing.JLabel();
-        CBbulan = new javax.swing.JComboBox<>();
+        CBbulan = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel3.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
         jLabel3.setText("STOCK IN");
-
-        textNama.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textNamaActionPerformed(evt);
-            }
-        });
-        textNama.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                textNamaKeyPressed(evt);
-            }
-        });
-
-        jLabel1.setText("Nama");
 
         jLabel2.setText("Jumlah Minyak");
 
@@ -108,9 +90,7 @@ public class stock_in extends javax.swing.JFrame {
             }
         });
 
-        Bulan.setText("Bulan");
-
-        CBbulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        CBbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         CBbulan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBbulanActionPerformed(evt);
@@ -131,74 +111,42 @@ public class stock_in extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(submit))
+                                .addComponent(submit)
+                                .addGap(30, 30, 30))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(Tanggal)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2)
-                                        .addComponent(Bulan))
+                                    .addComponent(jLabel2)
                                     .addGap(48, 48, 48)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(textNama)
                                         .addComponent(textJumlahMinyak)
-                                        .addComponent(CBtanggal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(CBbulan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(75, 75, 75))))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(CBtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(CBbulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(45, 45, 45))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textJumlahMinyak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tanggal)
-                    .addComponent(CBtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Bulan)
+                    .addComponent(CBtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CBbulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(56, 56, 56)
                 .addComponent(submit)
                 .addGap(57, 57, 57))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void textNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textNamaActionPerformed
-
-    private void textNamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNamaKeyPressed
-        // TODO add your handling code here:
-        switch(evt.getKeyCode()){
-            case KeyEvent.VK_BACK_SPACE:
-            break;
-            case KeyEvent.VK_ENTER:
-            textNama.setText(textNama.getText());
-            break;
-            default:
-            EventQueue.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    String txt = textNama.getText();
-                    autocomplete(txt);
-                }
-            });
-        }
-    }//GEN-LAST:event_textNamaKeyPressed
 
     private void textJumlahMinyakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textJumlahMinyakActionPerformed
         // TODO add your handling code here:
@@ -209,7 +157,6 @@ public class stock_in extends javax.swing.JFrame {
     }//GEN-LAST:event_CBtanggalActionPerformed
 
     private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
-        String nama = textNama.getText();
         String jumlah_minyak = textJumlahMinyak.getText();
 
         SimpleDateFormat sdf = new SimpleDateFormat();
@@ -222,13 +169,13 @@ public class stock_in extends javax.swing.JFrame {
         String tanggal = CBtanggal.getSelectedItem().toString();
         String bulan = CBbulan.getSelectedItem().toString();
         String dmy = year+"-"+bulan+"-"+tanggal;
-        check();
+        
         try{
-            if(nama.isEmpty() || jumlah_minyak.isEmpty() || tanggal.isEmpty() || bulan.isEmpty()){
+            if(jumlah_minyak.isEmpty() || tanggal.isEmpty() || bulan.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!!!");
             }else{
-                String insert_minyak = "INSERT INTO stock_in (nama_nelayan, tanggal, jumlah) "
-                + "VALUES ('"+nama+"','"+String.valueOf(dmy)+"','"+jumlah_minyak+"')";
+                String insert_minyak = "INSERT INTO stock_in ( tanggal, jumlah, status) "
+                + "VALUES ('"+String.valueOf(dmy)+"','"+jumlah_minyak+"', 'in')";
                 stat4.executeUpdate(insert_minyak);
                 JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
             }
@@ -281,70 +228,18 @@ public class stock_in extends javax.swing.JFrame {
             }
         });
     }
- private void loadnama(){
-        try{
-         
-            String sql1 = "SELECT * FROM nelayan";
-            ResultSet reset = stat.executeQuery(sql1);
-            
-                while (reset.next()){
-                String nama = reset.getString("nama");
-                
-                nama_nelayan.add(nama);
-            
-            }
-            
-          
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }
+ 
     
-    public void autocomplete(String txt){
-        String Complete="";
-        int start = txt.length();
-        int last = txt.length();
-        int a;
-        
-        for(a=0;a<nama_nelayan.size();a++){
-            if(nama_nelayan.get(a).toString().startsWith(txt)){
-                Complete = nama_nelayan.get(a).toString();
-                last = Complete.length();
-                break;
-            }
-        }
-        if(last>start) {
-            textNama.setText(Complete);
-            textNama.setCaretPosition(last);
-            textNama.moveCaretPosition(start);
-        }
-        
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Bulan;
     private javax.swing.JComboBox<String> CBbulan;
     private javax.swing.JComboBox CBtanggal;
     private javax.swing.JLabel Tanggal;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton submit;
     private javax.swing.JTextField textJumlahMinyak;
-    private javax.swing.JTextField textNama;
     // End of variables declaration//GEN-END:variables
 
-    private void check() {
-        try{
-                String sql1 = "SELECT * FROM nelayan WHERE nama='"+textNama.getText()+"'";
-                ResultSet result = stat2.executeQuery(sql1);
-                if(result.next() == false){
-                    String insert_nama = "INSERT INTO nelayan (nama) VALUES ('"+textNama.getText()+"')";
-                    stat3.executeUpdate(insert_nama);
-                }
-                
-            } catch(Exception e){
-                System.out.println(e.getMessage());
-            }
-    }
+ 
 }
 
