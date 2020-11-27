@@ -65,9 +65,10 @@ public class home extends javax.swing.JFrame {
         Tanggal = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         Bulan = new javax.swing.JLabel();
-        CBbulan = new javax.swing.JComboBox<>();
+        CBbulan = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,7 +116,7 @@ public class home extends javax.swing.JFrame {
 
         Bulan.setText("Bulan");
 
-        CBbulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        CBbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         CBbulan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBbulanActionPerformed(evt);
@@ -134,6 +135,13 @@ public class home extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnReport.setText("Report");
+        btnReport.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnReportKeyPressed(evt);
             }
         });
 
@@ -164,6 +172,8 @@ public class home extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)))
                 .addGap(75, 75, 75))
         );
@@ -173,7 +183,8 @@ public class home extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(btnReport))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,6 +304,11 @@ public class home extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void btnReportKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnReportKeyPressed
+        new Report().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReportKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -373,6 +389,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBbulan;
     private javax.swing.JComboBox CBtanggal;
     private javax.swing.JLabel Tanggal;
+    private javax.swing.JButton btnReport;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
