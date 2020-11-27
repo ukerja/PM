@@ -9,7 +9,9 @@ package pm;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class Report extends javax.swing.JFrame {
     Connection con;
     Statement stat, stat2, stat3, stat4, stat5;
+    ArrayList no = new ArrayList();
     /**
      * Creates new form Report
      */
@@ -49,6 +52,11 @@ public class Report extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,24 +106,36 @@ public class Report extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        DefaultTableModel model = new DefaultTableModel(new String[]{"No", "Nama Nelayan", "Tanggal","Jumlah"}, 0);
+     
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+           DefaultTableModel model = new DefaultTableModel(new String[]{"No", "Nama Nelayan", "Tanggal","Jumlah"}, 0);
       try{
-          String sql = "SELECT * FROM ambil_minyak";
+          String sql = "SELECT * FROM ambil_minyak ORDER BY tanggal desc";
           ResultSet rs = stat.executeQuery(sql);
           
           while(rs.next()){
-              String id = rs.getString("id");
               String nama = rs.getString("nama_nelayan");
               String tanggal = rs.getString("tanggal");
               String jumlah = rs.getString("jumlah");
-              model.addRow(new Object[]{id, nama, tanggal, jumlah});
+              String id = rs.getString("id");
+//              int rows = jTable1.getColumnCount();
+//              for(int i=1;i<=rows;i++){
+//                
+//              }
+              model.addRow(new Object[]{no, nama, tanggal, jumlah});
               jTable1.setModel(model);
+              
+//              String id = rs.getString("id");
+              
+              
 
           }
       }catch(Exception e){
           JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
       }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -160,5 +180,9 @@ public class Report extends javax.swing.JFrame {
 
     private void loadReport() {
       
+    }
+
+    private void addno() {
+        
     }
 }
