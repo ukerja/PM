@@ -139,6 +139,11 @@ public class home extends javax.swing.JFrame {
         });
 
         btnReport.setText("Report");
+        btnReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReportMouseClicked(evt);
+            }
+        });
         btnReport.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 btnReportKeyPressed(evt);
@@ -308,6 +313,11 @@ public class home extends javax.swing.JFrame {
         new Report().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReportKeyPressed
+
+    private void btnReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportMouseClicked
+        new Report().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReportMouseClicked
 
     /**
      * @param args the command line arguments
