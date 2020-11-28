@@ -105,7 +105,7 @@ public class Report extends javax.swing.JFrame {
 //              for(int i=1;i<=rows;i++){
 //                
 //              }
-              model.addRow(new Object[]{no, nama, tanggal, jumlah});
+              model.addRow(new Object[]{id, nama, tanggal, jumlah});
               jTable1.setModel(model);
               
 //              String id = rs.getString("id");
