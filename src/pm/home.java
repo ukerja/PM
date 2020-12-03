@@ -26,11 +26,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class home extends javax.swing.JFrame {
     Connection con;
-    Statement stat, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9;
+    Statement stat, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9, stat10, stat11;
     ResultSet rs;
     String sql;
     ArrayList nama_nelayan = new ArrayList();
     ArrayList nik_nelayan = new ArrayList();
+    String harga_beli, harga_jual;
     /**
      * Creates new form home
      */
@@ -47,8 +48,12 @@ public class home extends javax.swing.JFrame {
         stat7 = DB.stm;
         stat8 = DB.stm;
         stat9 = DB.stm;
+        stat10 = DB.stm;
+        stat11 = DB.stm;
         
+        loadHarga();
         loadnama();
+        
         initComponents();
         
 
@@ -87,6 +92,13 @@ public class home extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        textHargaBeli = new javax.swing.JTextField();
+        textHargaJual = new javax.swing.JTextField();
+        submitHarga = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -331,6 +343,64 @@ public class home extends javax.swing.JFrame {
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
+        jLabel8.setFont(new java.awt.Font("Bernard MT Condensed", 0, 12)); // NOI18N
+        jLabel8.setText("Harga");
+
+        jLabel9.setText("Harga Beli");
+
+        jLabel10.setText("Harga Jual");
+
+        textHargaBeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textHargaBeliActionPerformed(evt);
+            }
+        });
+
+        submitHarga.setText("Submit");
+        submitHarga.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitHargaMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(submitHarga)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel10))
+                            .addGap(25, 25, 25)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textHargaBeli)
+                                .addComponent(textHargaJual, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(textHargaBeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(textHargaJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(submitHarga)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -340,7 +410,9 @@ public class home extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -351,7 +423,9 @@ public class home extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -534,8 +608,11 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_submitSTOCKActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        textHargaBeli.setText(harga_beli);
+        textHargaJual.setText(harga_jual);
+        
         DefaultTableModel model = new DefaultTableModel(new String[]{"No", "Nama Nelayan", "Tanggal","Jumlah"}, 0);
-      try{
+        try{
           String sql = "SELECT * FROM ambil_minyak ORDER BY tanggal desc";
           ResultSet rs = stat6.executeQuery(sql);
           
@@ -556,10 +633,28 @@ public class home extends javax.swing.JFrame {
               
 
           }
-      }catch(Exception e){
+        }catch(Exception e){
           JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
       }
     }//GEN-LAST:event_formWindowActivated
+
+    private void textHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textHargaBeliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textHargaBeliActionPerformed
+
+    private void submitHargaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitHargaMouseClicked
+        String hargaBeli = textHargaBeli.getText();
+        String hargaJual = textHargaJual.getText();
+        try{
+            String updateHarga = "UPDATE harga SET harga_beli='"+hargaBeli+"', harga_jual='"+hargaJual+"'"
+                    + " WHERE id=1";
+            stat10.executeUpdate(updateHarga);
+            JOptionPane.showMessageDialog(null, "Berhasil mengubah harga");
+            loadHarga();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
+        }
+    }//GEN-LAST:event_submitHargaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -665,19 +760,26 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JLabel Tanggal;
     private javax.swing.JLabel Tanggal1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton submitAM;
+    private javax.swing.JButton submitHarga;
     private javax.swing.JButton submitSTOCK;
+    private javax.swing.JTextField textHargaBeli;
+    private javax.swing.JTextField textHargaJual;
     private javax.swing.JTextField textJumlahMinyak;
     private javax.swing.JTextField textJumlahMinyak1;
     private javax.swing.JTextField textNIK;
@@ -718,6 +820,23 @@ public class home extends javax.swing.JFrame {
             
         }
         
+    }
+
+    private void loadHarga() {
+        try{
+            String hargaMinyak = "SELECT * FROM harga WHERE id=1";
+            ResultSet sete = stat9.executeQuery(hargaMinyak);
+                if(sete.next() == true){
+                    harga_beli = sete.getString("harga_beli");
+                    harga_jual = sete.getString("harga_jual");
+                    
+//                    textHargaBeli.setText(String.valueOf(harga_beli));
+//                    textHargaJual.setText(String.valueOf(harga_jual));
+                } 
+                
+        }catch(Exception e){
+            System.out.println("ERROR: "+e.getMessage());
+        }
     }
 
 
