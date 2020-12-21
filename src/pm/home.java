@@ -7,6 +7,9 @@ package pm;
 
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
+import java.io.PrintStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,6 +95,7 @@ public class home extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
+        Sync = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -322,6 +326,13 @@ public class home extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
         jLabel7.setText("Report");
 
+        Sync.setLabel("Sync");
+        Sync.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SyncActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -332,6 +343,10 @@ public class home extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Sync)
+                .addGap(119, 119, 119))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,7 +355,9 @@ public class home extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Sync)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jLabel8.setFont(new java.awt.Font("Bernard MT Condensed", 0, 12)); // NOI18N
@@ -381,7 +398,7 @@ public class home extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(textHargaBeli)
                                 .addComponent(textHargaJual, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,11 +426,11 @@ public class home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 60, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,7 +439,7 @@ public class home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -656,6 +673,38 @@ public class home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitHargaMouseClicked
 
+    private void SyncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SyncActionPerformed
+        try{
+             String sql = "SELECT * FROM ambil_minyak";
+          ResultSet rs = stat6.executeQuery(sql);
+          
+          while(rs.next()){
+              String nama = rs.getString("nama_nelayan");
+              String tanggal = rs.getString("tanggal");
+              String jumlah = rs.getString("jumlah");
+              String id = rs.getString("id");
+          
+            URL url = new URL("https://lintasjakartabunguran.com/pm/insertlocal.php");
+            URLConnection con = url.openConnection();
+            // activate the output
+            con.setDoOutput(true);
+            PrintStream ps = new PrintStream(con.getOutputStream());
+            // send your parameters to your site
+            ps.print("&nama_nelayan="+nama);
+            ps.print("&tanggal="+tanggal);               
+            ps.print("jumlah="+jumlah);
+
+            // we have to get the input stream in order to actually send the request
+            con.getInputStream();
+            System.out.println("OK");
+            // close the print stream
+            ps.close();
+          }
+          }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_SyncActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -757,6 +806,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBbulan1;
     private javax.swing.JComboBox CBtanggal;
     private javax.swing.JComboBox CBtanggal1;
+    private javax.swing.JButton Sync;
     private javax.swing.JLabel Tanggal;
     private javax.swing.JLabel Tanggal1;
     private javax.swing.JLabel jLabel1;
