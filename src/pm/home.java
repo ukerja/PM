@@ -312,13 +312,13 @@ public class home extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -628,21 +628,23 @@ public class home extends javax.swing.JFrame {
         textHargaBeli.setText(harga_beli);
         textHargaJual.setText(harga_jual);
         
-        DefaultTableModel model = new DefaultTableModel(new String[]{"No", "Nama Nelayan", "Tanggal","Jumlah"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"No", "NIK", "Nama Nelayan", "Tanggal","Jumlah"}, 0);
         try{
           String sql = "SELECT * FROM ambil_minyak ORDER BY tanggal desc";
           ResultSet rs = stat6.executeQuery(sql);
-          
+          int no = 0;
           while(rs.next()){
               String nama = rs.getString("nama_nelayan");
               String tanggal = rs.getString("tanggal");
               String jumlah = rs.getString("jumlah");
+              String nik = rs.getString("nik");
               String id = rs.getString("id");
+              no = no + 1;
 //              int rows = jTable1.getColumnCount();
 //              for(int i=1;i<=rows;i++){
 //                
 //              }
-              model.addRow(new Object[]{id, nama, tanggal, jumlah});
+              model.addRow(new Object[]{no, nik, nama, tanggal, jumlah});
               jTable1.setModel(model);
               
 //              String id = rs.getString("id");
@@ -789,7 +791,7 @@ public class home extends javax.swing.JFrame {
 
             }
             }catch(Exception e){
-                JOptionPane.showMessageDialog(this, "KOCONG");
+                System.out.println("KOCONG");
         }
 //        if(textNama.getText().isEmpty()){
 //        }
