@@ -29,9 +29,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class home extends javax.swing.JFrame {
     Connection con;
-    Statement stat, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9, stat10, stat11;
+    Statement stat, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9, stat10, stat11, stat12;
     ResultSet rs;
-    String sql;
+    String sql, total_minyak;
     ArrayList nama_nelayan = new ArrayList();
     ArrayList nik_nelayan = new ArrayList();
     String harga_beli, harga_jual;
@@ -53,6 +53,7 @@ public class home extends javax.swing.JFrame {
         stat9 = DB.stm;
         stat10 = DB.stm;
         stat11 = DB.stm;
+        stat12 = DB.stm;
         
         loadHarga();
         loadnama();
@@ -83,6 +84,8 @@ public class home extends javax.swing.JFrame {
         submitAM = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         textNIK = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        Jstock = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -171,32 +174,41 @@ public class home extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setText("Stok");
+
+        Jstock.setText("0");
+        Jstock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JstockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(Tanggal)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Jstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(submitAM))
+                    .addComponent(textNama)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(Tanggal)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textNama)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(CBtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(CBbulan, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(textJumlahMinyak)
-                            .addComponent(textNIK))))
+                        .addComponent(CBtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(CBbulan, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textJumlahMinyak)
+                    .addComponent(textNIK))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -222,8 +234,15 @@ public class home extends javax.swing.JFrame {
                     .addComponent(CBtanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CBbulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(submitAM)
-                .addGap(25, 25, 25))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(Jstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(submitAM)
+                        .addContainerGap())))
         );
 
         jLabel5.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
@@ -357,7 +376,7 @@ public class home extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Sync)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jLabel8.setFont(new java.awt.Font("Bernard MT Condensed", 0, 12)); // NOI18N
@@ -426,7 +445,7 @@ public class home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -655,6 +674,7 @@ public class home extends javax.swing.JFrame {
         }catch(Exception e){
           JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
       }
+        loadminyak();
     }//GEN-LAST:event_formWindowActivated
 
     private void textHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textHargaBeliActionPerformed
@@ -706,6 +726,10 @@ public class home extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_SyncActionPerformed
+
+    private void JstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JstockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JstockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -808,11 +832,13 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBbulan1;
     private javax.swing.JComboBox CBtanggal;
     private javax.swing.JComboBox CBtanggal1;
+    private javax.swing.JTextField Jstock;
     private javax.swing.JButton Sync;
     private javax.swing.JLabel Tanggal;
     private javax.swing.JLabel Tanggal1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -888,6 +914,26 @@ public class home extends javax.swing.JFrame {
                 
         }catch(Exception e){
             System.out.println("ERROR: "+e.getMessage());
+        }
+    }
+
+    private void loadminyak() {
+        try{
+            String stok = "select (select sum(jumlah) from stock_in where status='in') -"
+                        + "(select sum(jumlah) from stock_in where status='out') as total";
+            ResultSet sti = stat12.executeQuery(stok);
+                if(sti.next()){
+                    String totaldata = sti.getString("total");
+                    Jstock.setText(totaldata);
+
+
+                    System.out.println("Total minyak "+totaldata);
+
+//                    JOptionPane.showConfirmDialog(null, "Total : "+jumlah);
+                  
+                }
+        }catch(Exception e){
+            System.out.println("Minyak error : "+e.getMessage());
         }
     }
 
