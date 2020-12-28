@@ -7,6 +7,9 @@ package pm;
 
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
+import java.io.PrintStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,9 +29,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class home extends javax.swing.JFrame {
     Connection con;
-    Statement stat, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9, stat10, stat11;
+    Statement stat, stat2, stat3, stat4, stat5, stat6, stat7, stat8, stat9, stat10, stat11, stat12;
     ResultSet rs;
-    String sql;
+    String sql, total_minyak;
     ArrayList nama_nelayan = new ArrayList();
     ArrayList nik_nelayan = new ArrayList();
     String harga_beli, harga_jual;
@@ -50,6 +53,7 @@ public class home extends javax.swing.JFrame {
         stat9 = DB.stm;
         stat10 = DB.stm;
         stat11 = DB.stm;
+        stat12 = DB.stm;
         
         loadHarga();
         loadnama();
@@ -68,6 +72,19 @@ public class home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        submitAM = new javax.swing.JButton();
+        Jstock = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        Tanggal = new javax.swing.JLabel();
+        CBtanggal = new javax.swing.JComboBox();
+        CBbulan = new javax.swing.JComboBox<String>();
+        textJumlahMinyak = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        textNIK = new javax.swing.JTextField();
+        textNama = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         textJumlahMinyak1 = new javax.swing.JTextField();
@@ -75,27 +92,17 @@ public class home extends javax.swing.JFrame {
         CBtanggal1 = new javax.swing.JComboBox();
         CBbulan1 = new javax.swing.JComboBox<String>();
         submitSTOCK = new javax.swing.JButton();
-        submitHarga = new javax.swing.JButton();
-        textHargaJual = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        textHargaBeli = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        Tanggal = new javax.swing.JLabel();
-        CBtanggal = new javax.swing.JComboBox();
-        CBbulan = new javax.swing.JComboBox<String>();
-        submitAM = new javax.swing.JButton();
-        textJumlahMinyak = new javax.swing.JTextField();
-        textNIK = new javax.swing.JTextField();
-        textNama = new javax.swing.JTextField();
-        Background = new javax.swing.JLabel();
+        Sync = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        textHargaBeli = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        textHargaJual = new javax.swing.JTextField();
+        submitHarga = new javax.swing.JButton();
+        bg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -104,151 +111,6 @@ public class home extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(null);
-
-        jLabel5.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
-        jLabel5.setText("STOCK IN");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(360, 40, 36, 14);
-
-        jLabel6.setText("Jumlah Minyak");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(360, 80, 69, 20);
-
-        textJumlahMinyak1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textJumlahMinyak1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(textJumlahMinyak1);
-        textJumlahMinyak1.setBounds(450, 80, 194, 20);
-
-        Tanggal1.setText("Tanggal");
-        getContentPane().add(Tanggal1);
-        Tanggal1.setBounds(360, 120, 38, 14);
-
-        CBtanggal1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Tanggal -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        CBtanggal1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBtanggal1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CBtanggal1);
-        CBtanggal1.setBounds(450, 120, 98, 20);
-
-        CBbulan1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-        CBbulan1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBbulan1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CBbulan1);
-        CBbulan1.setBounds(560, 120, 86, 20);
-
-        submitSTOCK.setText("Submit");
-        submitSTOCK.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitSTOCKMouseClicked(evt);
-            }
-        });
-        submitSTOCK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitSTOCKActionPerformed(evt);
-            }
-        });
-        getContentPane().add(submitSTOCK);
-        submitSTOCK.setBounds(550, 180, 65, 23);
-
-        submitHarga.setText("Submit");
-        submitHarga.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitHargaMouseClicked(evt);
-            }
-        });
-        getContentPane().add(submitHarga);
-        submitHarga.setBounds(570, 400, 65, 23);
-        getContentPane().add(textHargaJual);
-        textHargaJual.setBounds(462, 350, 170, 20);
-
-        jLabel10.setText("Harga Jual");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(400, 350, 51, 14);
-
-        jLabel9.setText("Harga Beli");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(400, 310, 48, 14);
-
-        jLabel8.setFont(new java.awt.Font("Bernard MT Condensed", 0, 12)); // NOI18N
-        jLabel8.setText("Harga");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(400, 270, 29, 15);
-
-        textHargaBeli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textHargaBeliActionPerformed(evt);
-            }
-        });
-        getContentPane().add(textHargaBeli);
-        textHargaBeli.setBounds(462, 310, 170, 20);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(50, 300, 287, 120);
-
-        jLabel7.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
-        jLabel7.setText("Report");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(50, 270, 28, 14);
-
-        jLabel3.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
-        jLabel3.setText("AMBIL MINYAK");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(50, 30, 57, 14);
-
-        jLabel1.setText("Nama");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(50, 70, 27, 14);
-
-        jLabel4.setText("NIK");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(50, 100, 17, 14);
-
-        jLabel2.setText("Jumlah Minyak");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(50, 130, 69, 20);
-
-        Tanggal.setText("Tanggal");
-        getContentPane().add(Tanggal);
-        Tanggal.setBounds(50, 170, 38, 14);
-
-        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Pilih Tanggal-", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        CBtanggal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBtanggalActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CBtanggal);
-        CBtanggal.setBounds(130, 160, 92, 20);
-
-        CBbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Pilih Bulan-", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-        CBbulan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBbulanActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CBbulan);
-        CBbulan.setBounds(230, 160, 80, 20);
 
         submitAM.setText("Submit");
         submitAM.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -262,7 +124,42 @@ public class home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(submitAM);
-        submitAM.setBounds(260, 200, 65, 23);
+        submitAM.setBounds(250, 200, 65, 23);
+
+        Jstock.setText("0");
+        Jstock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JstockActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Jstock);
+        Jstock.setBounds(130, 190, 33, 20);
+
+        jLabel11.setText("Stok");
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(50, 190, 21, 14);
+
+        Tanggal.setText("Tanggal");
+        getContentPane().add(Tanggal);
+        Tanggal.setBounds(50, 160, 38, 14);
+
+        CBtanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Pilih Tanggal-", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        CBtanggal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBtanggalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CBtanggal);
+        CBtanggal.setBounds(120, 160, 100, 20);
+
+        CBbulan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Pilih Bulan-", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        CBbulan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBbulanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CBbulan);
+        CBbulan.setBounds(230, 160, 90, 20);
 
         textJumlahMinyak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,7 +167,15 @@ public class home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(textJumlahMinyak);
-        textJumlahMinyak.setBounds(130, 130, 180, 20);
+        textJumlahMinyak.setBounds(120, 130, 200, 20);
+
+        jLabel2.setText("Jumlah Minyak");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(50, 130, 69, 20);
+
+        jLabel4.setText("NIK");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(50, 100, 17, 14);
 
         textNIK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,7 +183,7 @@ public class home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(textNIK);
-        textNIK.setBounds(130, 100, 180, 20);
+        textNIK.setBounds(120, 100, 200, 20);
 
         textNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,11 +196,135 @@ public class home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(textNama);
-        textNama.setBounds(130, 70, 180, 20);
+        textNama.setBounds(120, 60, 200, 20);
 
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/Image/home_fix.png"))); // NOI18N
-        getContentPane().add(Background);
-        Background.setBounds(0, 0, 710, 500);
+        jLabel1.setText("Nama");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(50, 70, 27, 14);
+
+        jLabel3.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
+        jLabel3.setText("AMBIL MINYAK");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(50, 40, 57, 14);
+
+        jLabel5.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
+        jLabel5.setText("STOCK IN");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(360, 40, 36, 14);
+
+        jLabel6.setText("Jumlah Minyak");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(360, 70, 69, 20);
+
+        textJumlahMinyak1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textJumlahMinyak1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textJumlahMinyak1);
+        textJumlahMinyak1.setBounds(440, 70, 194, 20);
+
+        Tanggal1.setText("Tanggal");
+        getContentPane().add(Tanggal1);
+        Tanggal1.setBounds(360, 110, 38, 14);
+
+        CBtanggal1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Tanggal -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        CBtanggal1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBtanggal1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CBtanggal1);
+        CBtanggal1.setBounds(440, 110, 98, 20);
+
+        CBbulan1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- Pilih Bulan -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        CBbulan1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBbulan1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CBbulan1);
+        CBbulan1.setBounds(550, 110, 86, 20);
+
+        submitSTOCK.setText("Submit");
+        submitSTOCK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitSTOCKMouseClicked(evt);
+            }
+        });
+        submitSTOCK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitSTOCKActionPerformed(evt);
+            }
+        });
+        getContentPane().add(submitSTOCK);
+        submitSTOCK.setBounds(570, 150, 65, 23);
+
+        jLabel7.setFont(new java.awt.Font("Bernard MT Condensed", 0, 11)); // NOI18N
+        jLabel7.setText("Report");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(50, 270, 28, 14);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(50, 300, 287, 120);
+
+        Sync.setLabel("Sync");
+        Sync.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SyncActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Sync);
+        Sync.setBounds(190, 430, 55, 23);
+
+        jLabel8.setFont(new java.awt.Font("Bernard MT Condensed", 0, 12)); // NOI18N
+        jLabel8.setText("Harga");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(400, 280, 29, 15);
+
+        jLabel9.setText("Harga Beli");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(400, 300, 48, 14);
+
+        textHargaBeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textHargaBeliActionPerformed(evt);
+            }
+        });
+        getContentPane().add(textHargaBeli);
+        textHargaBeli.setBounds(470, 300, 142, 20);
+
+        jLabel10.setText("Harga Jual");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(400, 340, 51, 14);
+        getContentPane().add(textHargaJual);
+        textHargaJual.setBounds(470, 340, 142, 20);
+
+        submitHarga.setText("Submit");
+        submitHarga.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitHargaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(submitHarga);
+        submitHarga.setBounds(550, 380, 65, 23);
+
+        bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pm/pic/home_fix.png"))); // NOI18N
+        getContentPane().add(bg);
+        bg.setBounds(0, -10, 710, 520);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -404,85 +433,19 @@ public class home extends javax.swing.JFrame {
     private void textNIKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNIKActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textNIKActionPerformed
-    
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        textHargaBeli.setText(harga_beli);
-        textHargaJual.setText(harga_jual);
-        
-        DefaultTableModel model = new DefaultTableModel(new String[]{"No", "Nama Nelayan", "Tanggal","Jumlah"}, 0);
-        try{
-          String sql = "SELECT * FROM ambil_minyak ORDER BY tanggal desc";
-          ResultSet rs = stat6.executeQuery(sql);
-          
-          while(rs.next()){
-              String nama = rs.getString("nama_nelayan");
-              String tanggal = rs.getString("tanggal");
-              String jumlah = rs.getString("jumlah");
-              String id = rs.getString("id");
-//              int rows = jTable1.getColumnCount();
-//              for(int i=1;i<=rows;i++){
-//                
-//              }
-              model.addRow(new Object[]{id, nama, tanggal, jumlah});
-              jTable1.setModel(model);
-              
-//              String id = rs.getString("id");
-              
-              
 
-          }
-        }catch(Exception e){
-          JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
-      }
-    }//GEN-LAST:event_formWindowActivated
-
-    private void textHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textHargaBeliActionPerformed
+    private void textJumlahMinyak1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textJumlahMinyak1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textHargaBeliActionPerformed
+    }//GEN-LAST:event_textJumlahMinyak1ActionPerformed
 
-    private void submitHargaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitHargaMouseClicked
-        String hargaBeli = textHargaBeli.getText();
-        String hargaJual = textHargaJual.getText();
-        try{
-            String updateHarga = "UPDATE harga SET harga_beli='"+hargaBeli+"', harga_jual='"+hargaJual+"'"
-                    + " WHERE id=1";
-            stat10.executeUpdate(updateHarga);
-            JOptionPane.showMessageDialog(null, "Berhasil mengubah harga");
-            loadHarga();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
-        }
-    }//GEN-LAST:event_submitHargaMouseClicked
+    private void CBtanggal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBtanggal1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBtanggal1ActionPerformed
 
-    private void submitSTOCKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSTOCKActionPerformed
-        String jumlah_minyak = textJumlahMinyak1.getText();
-
-        SimpleDateFormat sdf = new SimpleDateFormat();
-        int numbers_to_add_max = 31;
-        for (int i = 1; i <= numbers_to_add_max; i++) {
-            CBtanggal1.addItem(new Integer(i));
-        }
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-
-        String tanggal = CBtanggal1.getSelectedItem().toString();
-        String bulan = CBbulan1.getSelectedItem().toString();
-        String dmy = year+"-"+bulan+"-"+tanggal;
-
-        try{
-            if(jumlah_minyak.isEmpty() || tanggal.isEmpty() || bulan.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!!!");
-            }else{
-                String insert_minyak = "INSERT INTO stock_in ( tanggal, jumlah, status) "
-                + "VALUES ('"+String.valueOf(dmy)+"','"+jumlah_minyak+"', 'in')";
-                stat4.executeUpdate(insert_minyak);
-                JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
-            }
-
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_submitSTOCKActionPerformed
-
+    private void CBbulan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBbulan1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBbulan1ActionPerformed
+    
     private void submitSTOCKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitSTOCKMouseClicked
         String jumlah_minyak = textJumlahMinyak.getText();
 
@@ -512,17 +475,122 @@ public class home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitSTOCKMouseClicked
 
-    private void CBbulan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBbulan1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CBbulan1ActionPerformed
+    private void submitSTOCKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitSTOCKActionPerformed
+        String jumlah_minyak = textJumlahMinyak1.getText();
 
-    private void CBtanggal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBtanggal1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CBtanggal1ActionPerformed
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        int numbers_to_add_max = 31;
+        for (int i = 1; i <= numbers_to_add_max; i++) {
+            CBtanggal1.addItem(new Integer(i));
+        }
+        int year = Calendar.getInstance().get(Calendar.YEAR);
 
-    private void textJumlahMinyak1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textJumlahMinyak1ActionPerformed
+        String tanggal = CBtanggal1.getSelectedItem().toString();
+        String bulan = CBbulan1.getSelectedItem().toString();
+        String dmy = year+"-"+bulan+"-"+tanggal;
+        
+        try{
+            if(jumlah_minyak.isEmpty() || tanggal.isEmpty() || bulan.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Data tidak boleh kosong!!!");
+            }else{
+                String insert_minyak = "INSERT INTO stock_in ( tanggal, jumlah, status) "
+                + "VALUES ('"+String.valueOf(dmy)+"','"+jumlah_minyak+"', 'in')";
+                stat4.executeUpdate(insert_minyak);
+                JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
+            }
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_submitSTOCKActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        textHargaBeli.setText(harga_beli);
+        textHargaJual.setText(harga_jual);
+        
+        DefaultTableModel model = new DefaultTableModel(new String[]{"No", "NIK", "Nama Nelayan", "Tanggal","Jumlah"}, 0);
+        try{
+          String sql = "SELECT * FROM ambil_minyak ORDER BY tanggal desc";
+          ResultSet rs = stat6.executeQuery(sql);
+          int no = 0;
+          while(rs.next()){
+              String nama = rs.getString("nama_nelayan");
+              String tanggal = rs.getString("tanggal");
+              String jumlah = rs.getString("jumlah");
+              String nik = rs.getString("nik");
+              String id = rs.getString("id");
+              no = no + 1;
+//              int rows = jTable1.getColumnCount();
+//              for(int i=1;i<=rows;i++){
+//                
+//              }
+              model.addRow(new Object[]{no, nik, nama, tanggal, jumlah});
+              jTable1.setModel(model);
+              
+//              String id = rs.getString("id");
+              
+              
+
+          }
+        }catch(Exception e){
+          JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
+      }
+        loadminyak();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void textHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textHargaBeliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textJumlahMinyak1ActionPerformed
+    }//GEN-LAST:event_textHargaBeliActionPerformed
+
+    private void submitHargaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitHargaMouseClicked
+        String hargaBeli = textHargaBeli.getText();
+        String hargaJual = textHargaJual.getText();
+        try{
+            String updateHarga = "UPDATE harga SET harga_beli='"+hargaBeli+"', harga_jual='"+hargaJual+"'"
+                    + " WHERE id=1";
+            stat10.executeUpdate(updateHarga);
+            JOptionPane.showMessageDialog(null, "Berhasil mengubah harga");
+            loadHarga();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error : "+e.getMessage());
+        }
+    }//GEN-LAST:event_submitHargaMouseClicked
+
+    private void SyncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SyncActionPerformed
+        try{
+             String sql = "SELECT * FROM ambil_minyak";
+          ResultSet rs = stat6.executeQuery(sql);
+          
+          while(rs.next()){
+              String nama = rs.getString("nama_nelayan");
+              String tanggal = rs.getString("tanggal");
+              String jumlah = rs.getString("jumlah");
+              String id = rs.getString("id");
+          
+            URL url = new URL("https://lintasjakartabunguran.com/pm/insertlocal.php");
+            URLConnection con = url.openConnection();
+            // activate the output
+            con.setDoOutput(true);
+            PrintStream ps = new PrintStream(con.getOutputStream());
+            // send your parameters to your site
+            ps.print("&nama_nelayan="+nama);
+            ps.print("&tanggal="+tanggal);               
+            ps.print("jumlah="+jumlah);
+
+            // we have to get the input stream in order to actually send the request
+            con.getInputStream();
+            System.out.println("OK");
+            // close the print stream
+            ps.close();
+          }
+          }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_SyncActionPerformed
+
+    private void JstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JstockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JstockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -608,7 +676,7 @@ public class home extends javax.swing.JFrame {
 
             }
             }catch(Exception e){
-                JOptionPane.showMessageDialog(this, "KOCONG");
+                System.out.println("KOCONG");
         }
 //        if(textNama.getText().isEmpty()){
 //        }
@@ -621,15 +689,18 @@ public class home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Background;
     private javax.swing.JComboBox<String> CBbulan;
     private javax.swing.JComboBox<String> CBbulan1;
     private javax.swing.JComboBox CBtanggal;
     private javax.swing.JComboBox CBtanggal1;
+    private javax.swing.JTextField Jstock;
+    private javax.swing.JButton Sync;
     private javax.swing.JLabel Tanggal;
     private javax.swing.JLabel Tanggal1;
+    private javax.swing.JLabel bg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -701,6 +772,26 @@ public class home extends javax.swing.JFrame {
                 
         }catch(Exception e){
             System.out.println("ERROR: "+e.getMessage());
+        }
+    }
+
+    private void loadminyak() {
+        try{
+            String stok = "select (select sum(jumlah) from stock_in where status='in') -"
+                        + "(select sum(jumlah) from stock_in where status='out') as total";
+            ResultSet sti = stat12.executeQuery(stok);
+                if(sti.next()){
+                    String totaldata = sti.getString("total");
+                    Jstock.setText(totaldata);
+
+
+                    System.out.println("Total minyak "+totaldata);
+
+//                    JOptionPane.showConfirmDialog(null, "Total : "+jumlah);
+                  
+                }
+        }catch(Exception e){
+            System.out.println("Minyak error : "+e.getMessage());
         }
     }
 
